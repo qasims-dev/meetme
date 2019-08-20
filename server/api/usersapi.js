@@ -22,9 +22,31 @@ module.exports = function(app, db) {
     }
   });
 
+  app.delete("/api/users/:id", async (req, resp) => {
+    try {
+      console.log("DELETE API");
+      let id = Number(req.params.id);
+      await dao.deleteUser(id, function({ error, data }) {
+        resp.json(data);
+      });
+    } catch (e) {
+      resp.sendStatus(500);
+    }
+  });
+
   app.post("/api/users", async (req, resp) => {
     try {
       await dao.insert(req.body, function({ error, data }) {
+        resp.json(data);
+      });
+    } catch (e) {
+      resp.sendStatus(500);
+    }
+  });
+
+  app.put("/api/users", async (req, resp) => {
+    try {
+      await dao.updateUser(req.body, function({ error, data }) {
         resp.json(data);
       });
     } catch (e) {

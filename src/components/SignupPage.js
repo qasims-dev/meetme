@@ -89,9 +89,10 @@ export class SignupPage extends Component {
       created_at: c
     };
 
-    axios
-      .post("http://localhost:9000/api/users", body)
-      .then(res => console.log(res.data));
+    axios.post("http://localhost:9000/api/users", body).then(res => {
+      console.log(res.data);
+      alert("User has been created");
+    });
 
     /* UserService.postAll(console.log("POSTED"),{ "id": null,
             "firstName": "test",

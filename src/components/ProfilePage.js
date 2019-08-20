@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 import axios from "axios";
 
@@ -18,11 +20,12 @@ export class ProfilePage extends Component {
       email: "",
       password: ""
     };
+    this.removeAccount = this.removeAccount.bind(this);
   }
 
   componentDidMount() {
     axios.get(`http://localhost:9000/api/users/${this.userId}`).then(res => {
-      //console.log(res.data);
+      console.log("USER ID IN MOUNT", this.userId);
       this.setState({
         firstname: res.data.firstName,
         lastname: res.data.lastName,
@@ -40,8 +43,33 @@ export class ProfilePage extends Component {
                 }  */
     });
   }
-  removeAccount(e) {
-    alert("Remove My account");
+
+  removeAccount() {
+    //alert("Remove My account");
+    console.log("USER ID IN REMOVE", this.userId);
+    confirmAlert({
+      title: "Confirm to submit",
+
+      message: `Are you sure to do this.${this.userId}`,
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => {
+            axios
+              .delete(`http://localhost:9000/api/users/${this.userId}`)
+              .then(res => {
+                localStorage.removeItem("authInfo");
+
+                window.location = "/";
+              });
+          }
+        },
+        {
+          label: "No"
+          // onClick: () => alert("Click No")
+        }
+      ]
+    });
   }
   render() {
     return (
@@ -55,7 +83,7 @@ export class ProfilePage extends Component {
             <hr />
             <ul className="list-group list-group-horizontal">
               <li className="list-group-item">
-                <a href="#">Edit Profile</a>
+                <Link to="/EditProfile">Edit Profile</Link>
               </li>
               <li className="list-group-item">
                 <Link to="/AddFriend">Add Friends</Link>
