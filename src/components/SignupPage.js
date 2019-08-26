@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 //import { UserService } from "./../userservice";
 //import { HTTP } from '../http';
 import axios from "axios";
@@ -10,6 +11,8 @@ export class SignupPage extends Component {
     this.onChangeLastName = this.onChangeLastName.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeImage = this.onChangeImage.bind(this);
+    this.uploadImgfunc = this.uploadImgfunc.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     //this.state={users:[]};
     this.state = {
@@ -19,7 +22,8 @@ export class SignupPage extends Component {
       email: "",
       password: "",
       is_active: "",
-      created_at: ""
+      created_at: "",
+      imageInfo: [{ imageName: "admin.png", imagebuffer: null }]
     };
   }
 
@@ -48,6 +52,13 @@ export class SignupPage extends Component {
     });
   }
 
+  onChangeImage(e) {
+    //this.setState({ imagebuffer: e.target.files[0] });
+    this.setState({
+      imageInfo: { imageName: e.target.value, imagebuffer: e.target.files[0] }
+    });
+  }
+
   currentDates() {
     var today = new Date();
     var date =
@@ -61,22 +72,18 @@ export class SignupPage extends Component {
     var dateTime = date + " " + time;
     return dateTime;
   }
+
+  uploadImgfunc() {
+    const body = new FormData();
+    body.append("file", this.state.imageInfo.imagebuffer);
+    axios.post("http://localhost:9000/api/usersImage", body).then(res => {
+      //console.log(res.data);
+      // alert("Image upload");
+    });
+  }
+
   onSubmit = e => {
     e.preventDefault();
-
-    //componentDidMount(){
-    //UserService.getAll()
-    //HTTP.get("/api/users").then(console.log(users=>this.state({users})));
-    console.log("INSIDE POST");
-    console.log("Target Value:", e.target.value);
-    /* const jawab = { "id": null,
-            "firstName": "test",
-            "lastName": "sectest",
-            "email": "test@gmail.com",
-            "password": "test",
-            "is_active": 0,
-            "created_at": "2013-07-17 17:18:55"}
- */
 
     let c = this.currentDates();
     const body = {
@@ -85,36 +92,21 @@ export class SignupPage extends Component {
       lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password,
+      image: this.state.imageInfo.imageName,
       is_active: 0,
       created_at: c
     };
-
+    /* const bodydata = new FormData();
+    bodydata.append("body", body);
+    bodydata.append("image", this.state.image);
+    console.log(bodydata); */
+    //body.append(bodydata);
     axios.post("http://localhost:9000/api/users", body).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       alert("User has been created");
     });
-
-    /* UserService.postAll(console.log("POSTED"),{ "id": null,
-            "firstName": "test",
-            "lastName": "sectest",
-            "email": "test@gmail.com",
-            "password": "test",
-            "is_active": 0,
-            "created_at": "21.07.2019 17:43"}) */
+    this.uploadImgfunc();
   };
-  //}
-
-  /* componentDidMount(){
-        //UserService.getAll()
-        //HTTP.get("/api/users").then(console.log(users=>this.state({users})));
-        UserService.postAll(console.log("POSTED"),{ "id": null,
-        "firstName": "test",
-        "lastName": "sectest",
-        "email": "test@gmail.com",
-        "password": "test",
-        "is_active": 0,
-        "created_at": "21.07.2019 17:43"})
-    }     */
 
   render() {
     return (
@@ -161,6 +153,16 @@ export class SignupPage extends Component {
               id="password"
               placeholder="Write Your Password"
               onChange={this.onChangePassword}
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="image">Image</label>
+            <input
+              className="form-control"
+              type="file"
+              id="image"
+              onChange={this.onChangeImage}
             />
           </div>
 

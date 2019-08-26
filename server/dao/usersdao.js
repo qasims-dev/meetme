@@ -1,3 +1,5 @@
+//app.use(express.json());
+
 module.exports = function(db) {
   return {
     getAll(cb) {

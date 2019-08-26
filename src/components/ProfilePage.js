@@ -12,15 +12,19 @@ export class ProfilePage extends Component {
     this.authInfo = JSON.parse(localStorage.getItem("authInfo"));
     this.userId = this.authInfo.userId;
     this.authS = this.authInfo.authStatus;
+
     //this.nameofuser = localStorage.getItem("TheName");
 
     this.state = {
       firstname: "",
       lastname: "",
       email: "",
-      password: ""
+      password: "",
+      image: "",
+      imgbuffer: null
     };
     this.removeAccount = this.removeAccount.bind(this);
+    this.bringImg = this.bringImg.bind(this);
   }
 
   componentDidMount() {
@@ -30,9 +34,10 @@ export class ProfilePage extends Component {
         firstname: res.data.firstName,
         lastname: res.data.lastName,
         email: res.data.email,
-        password: res.data.password
+        password: res.data.password,
+        image: res.data.image
       });
-
+      this.bringImg();
       /* if(res.data==="ok")
                 {   
                 window.location="/ProfilePage";
@@ -41,6 +46,28 @@ export class ProfilePage extends Component {
                     //console.log("RESP:Login Failed");
                     this.setState({authSuccess:'Login Failed'});
                 }  */
+    });
+  }
+
+  bringImg(e) {
+    //e.preventDefault();
+    const imginfo = {
+      imageName: this.state.image
+    };
+    // console.log(imginfo);
+    axios.post("http://localhost:9000/api/getUserimg", imginfo).then(res => {
+      // var base64Flag = "data:image/png;base64,";
+      //  var imageStr = this.arrayBufferToBase64(data.img.data.data);
+      // console.log("THIS IS IMAGE DATA:", res);
+      //var imageStr = this.arrayBufferToBase64(res.data);
+      // console.log("THIS IS IMAGE AFTER BASE64:", imageStr);
+      //this.setState({ imagebuffer: base64Flag + imageStr });
+      //alert("IMAGE GET IS CLICKED");
+      var imgs = "data:image/png;base64," + res.data;
+
+      //console.log("THIS IS IMAGE DATA:", btoa(res.data));
+      this.setState({ imgbuffer: imgs });
+      // console.log("Buffer sate", this.state.imgbuffer);
     });
   }
 
@@ -55,9 +82,17 @@ export class ProfilePage extends Component {
         {
           label: "Yes",
           onClick: () => {
+            /* const userinfo = {
+              id: this.userId,
+              imageName: this.state.image
+            }; */
             axios
-              .delete(`http://localhost:9000/api/users/${this.userId}`)
+              //.delete(`http://localhost:9000/api/users/${this.userId}`)
+              .delete(`http://localhost:9000/api/users/`, {
+                params: { id: this.userId, imageName: this.state.image }
+              })
               .then(res => {
+                console.log(res);
                 localStorage.removeItem("authInfo");
 
                 window.location = "/";
@@ -102,7 +137,18 @@ export class ProfilePage extends Component {
             <p>Email: {this.state.email} </p>
 
             <p>Password: {this.state.password}</p>
-            <p>IMAGE COMES HERE</p>
+            <p>
+              Image:{" "}
+              <img
+                src={
+                  //process.env.PUBLIC_URL + "/profileImages/admin.png"
+                  this.state.imgbuffer
+                }
+                alt="alt"
+                className="rounded-circle"
+                style={{ width: "25%" }}
+              />
+            </p>
           </div>
         </div>
         <div />
