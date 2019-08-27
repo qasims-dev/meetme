@@ -13,8 +13,10 @@ app.use(express.static(__dirname + "/public"));
 //app.use('/api/users',apiRouter);
 let db = require("./mysqlhelper");
 let usersApi = require("./api/usersapi");
+let contactsApi = require("./api/contactsapi");
 
 usersApi(app, db);
+contactsApi(app, db);
 
 //app.use(usersApi(app,db));
 /* app.use('/api/users',(req,res,next)=>{

@@ -1,35 +1,22 @@
 import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
-
-export class AddFriend extends Component {
+import { Link } from "react-router-dom";
+export class Contacts extends Component {
   constructor(props) {
     super(props);
-    //this.data = null;
-    this.authInfo = JSON.parse(localStorage.getItem("authInfo"));
-    this.userId = this.authInfo.userId;
-    this.authS = this.authInfo.authStatus;
-    //this.nameofuser = localStorage.getItem("TheName");
-
     this.state = {
       allUsers: []
     };
-    this.addContact = this.addContact.bind(this);
+    this.authInfo = JSON.parse(localStorage.getItem("authInfo"));
+    this.userId = this.authInfo.userId;
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:9000/api/users/`).then(res => {
-      /* console.log(res.data);
-      this.data = res.data; */
-      this.setState({ allUsers: res.data });
-      //console.log(this.data);
-      /* this.setState({
-        firstname: res.data.firstName,
-        lastname: res.data.lastName,
-        email: res.data.email,
-        password: res.data.password
-      }); */
+    //axios.get(`http://localhost:9000/api/contacts/${this.userId}`).then(res => {
 
+    axios.get(`http://localhost:9000/api/users/`).then(res => {
+      console.log("USER ID IN MOUNT", this.userId);
+      this.setState({ allUsers: res.data });
       /* if(res.data==="ok")
                 {   
                 window.location="/ProfilePage";
@@ -40,24 +27,6 @@ export class AddFriend extends Component {
                 }  */
     });
   }
-
-  addContact(e) {
-    e.preventDefault();
-    let authInfo = JSON.parse(localStorage.getItem("authInfo"));
-
-    const contactInfo = {
-      contactId: e.target.id,
-      profileId: authInfo.userId,
-
-      contactType: "Personal"
-    };
-
-    //console.log("Query", e.target.id);
-    axios.post(`http://localhost:9000/api/contacts/`, contactInfo).then(res => {
-      console.log(res);
-    });
-  }
-
   render() {
     return (
       <Fragment>
@@ -87,7 +56,7 @@ export class AddFriend extends Component {
                     <p>User Id: {user.id}</p>
                     <p>
                       <Link onClick={this.addContact} id={user.id}>
-                        Add Contact
+                        Remove Contact
                       </Link>
                     </p>
                   </td>
@@ -102,4 +71,4 @@ export class AddFriend extends Component {
   }
 }
 
-export default AddFriend;
+export default Contacts;

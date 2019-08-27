@@ -9,6 +9,7 @@ import ProfilePage from "./components/ProfilePage";
 import EditProfilePage from "./components/EditProfilePage";
 import LogoutPage from "./components/LogoutPage";
 import AddFriend from "./components/AddFriend";
+import Contacts from "./components/Contacts";
 class App extends Component {
   constructor() {
     super();
@@ -36,6 +37,7 @@ class App extends Component {
             <Route exact path="/ProfilePage" component={ProfilePage} />
             <Route exact path="/LogoutPage" component={LogoutPage} />
             <Route exact path="/AddFriend" component={AddFriend} />
+            <Route exact path="/Contacts" component={Contacts} />
             <Route exact path="/EditProfile" component={EditProfilePage} />
 
             <Footer />

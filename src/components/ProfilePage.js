@@ -121,7 +121,10 @@ export class ProfilePage extends Component {
                 <Link to="/EditProfile">Edit Profile</Link>
               </li>
               <li className="list-group-item">
-                <Link to="/AddFriend">Add Friends</Link>
+                <Link to="/AddFriend">Add Contact</Link>
+              </li>
+              <li className="list-group-item">
+                <Link to="/Contacts">Contacts</Link>
               </li>
               <li className="list-group-item">
                 <Link to="#" onClick={this.removeAccount}>
