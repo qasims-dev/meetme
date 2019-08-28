@@ -76,8 +76,10 @@ export class AddFriend extends Component {
                 <tr>
                   <td>
                     <img
-                      src="https://source.unsplash.com/random/150x150"
+                      src={`http://localhost:9000/images/${user.image}`}
                       alt="alt"
+                      className="rounded-circle"
+                      style={{ width: "25%" }}
                     />
                   </td>
                   <td>

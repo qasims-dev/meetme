@@ -61,11 +61,17 @@ module.exports = function(app, db) {
     try {
       //await upload.single(req.body.image);
       //console.log("IN THE API", req.bodydata);
-      let filepath = req.body.image;
-      // console.log("FILE PATH", filepath);
-      let fileext = filepath.slice(((filepath.lastIndexOf(".") - 1) >>> 0) + 2);
-      //console.log("FILE EXT", fileext);
-      fileName = req.body.email + "." + fileext;
+      if (!req.body.image) {
+        fileName = "admin.png";
+      } else {
+        let filepath = req.body.image;
+        // console.log("FILE PATH", filepath);
+        let fileext = filepath.slice(
+          ((filepath.lastIndexOf(".") - 1) >>> 0) + 2
+        );
+        //console.log("FILE EXT", fileext);
+        fileName = req.body.email + "." + fileext;
+      }
       // console.log("FILE NAME", fileName);
       //console.log(req.body.image);
       req.body.image = fileName;

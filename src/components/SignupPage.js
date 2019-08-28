@@ -101,11 +101,15 @@ export class SignupPage extends Component {
     bodydata.append("image", this.state.image);
     console.log(bodydata); */
     //body.append(bodydata);
+    console.log(this.state.imageInfo.imageName);
     axios.post("http://localhost:9000/api/users", body).then(res => {
       // console.log(res.data);
       alert("User has been created");
     });
-    this.uploadImgfunc();
+    if (this.state.imageInfo.imageName !== "admin.png") {
+      console.log("IMAGE NOT SELECTED");
+      this.uploadImgfunc();
+    }
   };
 
   render() {

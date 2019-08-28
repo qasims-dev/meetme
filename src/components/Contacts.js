@@ -14,8 +14,7 @@ export class Contacts extends Component {
   componentDidMount() {
     //axios.get(`http://localhost:9000/api/contacts/${this.userId}`).then(res => {
 
-    axios.get(`http://localhost:9000/api/users/`).then(res => {
-      console.log("USER ID IN MOUNT", this.userId);
+    axios.get(`http://localhost:9000/api/contacts/${this.userId}`).then(res => {
       this.setState({ allUsers: res.data });
       /* if(res.data==="ok")
                 {   
@@ -32,38 +31,43 @@ export class Contacts extends Component {
       <Fragment>
         <div>
           <table>
-            {this.state.allUsers.map(user => (
-              <Fragment>
-                <tr>
-                  <td>
-                    <hr />
-                    <h2>
-                      {user.firstName} {user.lastName}
-                    </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img
-                      src="https://source.unsplash.com/random/150x150"
-                      alt="alt"
-                    />
-                  </td>
-                  <td>
-                    <p>First Name: {user.firstName}</p>
-                    <p>Last Name: {user.lastName}</p>
-                    <p>Last Name: {user.email}</p>
-                    <p>User Id: {user.id}</p>
-                    <p>
-                      <Link onClick={this.addContact} id={user.id}>
-                        Remove Contact
-                      </Link>
-                    </p>
-                  </td>
-                </tr>
-                <hr />
-              </Fragment>
-            ))}
+            <tbody>
+              {this.state.allUsers.map(user => (
+                <Fragment>
+                  <tr>
+                    <td>
+                      <hr />
+                      <h2>
+                        {user.firstName} {user.lastName}
+                        {user.image}
+                      </h2>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <img
+                        src={`http://localhost:9000/images/${user.image}`}
+                        alt="alt"
+                        className="rounded-circle"
+                        style={{ width: "25%" }}
+                      />
+                    </td>
+                    <td>
+                      <p>First Name: {user.firstName}</p>
+                      <p>Last Name: {user.lastName}</p>
+                      <p>Last Name: {user.email}</p>
+                      <p>User Id: {user.id}</p>
+                      <p>
+                        <Link onClick={this.addContact} id={user.id}>
+                          Remove Contact
+                        </Link>
+                      </p>
+                    </td>
+                  </tr>
+                  <hr />
+                </Fragment>
+              ))}
+            </tbody>
           </table>
         </div>
       </Fragment>

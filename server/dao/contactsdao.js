@@ -4,14 +4,15 @@ module.exports = function(db) {
       db.query("SELECT * FROM contacts", cb);
     },
     get(id, cb) {
-      db.paramQuery("SELECT * FROM contacts where profileId=?", [id], function({
-        error,
-        data
-      }) {
-        if (error) cb({ error });
-        else if (data.length) cb({ data: data[0] });
-        else cb({ data: {} });
-      });
+      db.paramQuery(
+        "select u.* from contacts c, users u where u.id=contactId and profileId=?",
+        [id],
+        function({ error, data }) {
+          if (error) cb({ error });
+          else if (data.length) cb({ data: data });
+          else cb({ data: {} });
+        }
+      );
     },
 
     insert(contact, cb) {

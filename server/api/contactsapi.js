@@ -15,6 +15,7 @@ module.exports = function(app, db) {
     try {
       let id = Number(req.params.id);
       await dao.get(id, function({ error, data }) {
+        console.log(data);
         resp.json(data);
       });
     } catch (e) {

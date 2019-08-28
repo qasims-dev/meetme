@@ -9,7 +9,9 @@ var app = express();
 //app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors()); // Use this after the variable declaration
-app.use(express.static(__dirname + "/public"));
+console.log(__dirname + "/public");
+app.use("/images", express.static(__dirname + "/public"));
+//application.use("/public", express.static(path.join(__dirname, 'public')));
 //app.use('/api/users',apiRouter);
 let db = require("./mysqlhelper");
 let usersApi = require("./api/usersapi");
