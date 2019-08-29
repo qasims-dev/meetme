@@ -16,10 +16,10 @@ app.use("/images", express.static(__dirname + "/public"));
 let db = require("./mysqlhelper");
 let usersApi = require("./api/usersapi");
 let contactsApi = require("./api/contactsapi");
-
+let adminsApi = require("./api/adminapi");
 usersApi(app, db);
 contactsApi(app, db);
-
+adminsApi(app, db);
 //app.use(usersApi(app,db));
 /* app.use('/api/users',(req,res,next)=>{
     //var url_parts = url.parse(req.url);

@@ -16,6 +16,16 @@ module.exports = function(db) {
         else cb({ data: {} });
       });
     },
+    getallUsers(id, cb) {
+      db.paramQuery("SELECT * FROM users where id!=?", [id], function({
+        error,
+        data
+      }) {
+        if (error) cb({ error });
+        else if (data.length) cb({ data: data });
+        else cb({ data: {} });
+      });
+    },
 
     insert(user, cb) {
       db.paramQuery("INSERT INTO users SET ?", user, ({ error, data }) => {
@@ -27,7 +37,7 @@ module.exports = function(db) {
       });
     },
     deleteUser(id, cb) {
-      console.log("IN DELETE");
+      console.log("IN DELETE DAO", id);
       db.paramQuery("DELETE FROM users where id=?", [id], function({
         error,
         data
@@ -50,6 +60,18 @@ module.exports = function(db) {
       );
     },
 
+    updateUserPassword(user, cb) {
+      console.log("IN Password UPDATE", user);
+      db.paramQuery(
+        "UPDATE users SET password=? WHERE id=?",
+        [user.password, user.id],
+        function({ error, data }) {
+          if (error) cb({ error });
+          else if (data.length) cb({ data: data[0] });
+          else cb({ data: {} });
+        }
+      );
+    },
     authCheck(email, password, cb) {
       db.paramQuery(
         "SELECT * FROM users WHERE email = ? AND password = ?",

@@ -31,17 +31,19 @@ class Header extends Component {
   }
   render() {
     return (
-      <div className="container">
-        <nav className="navbar navbar-light bg-light">
-          <a className="navbar-brand" href="#">
-            MeetMe App
-          </a>
+      <Fragment>
+        <div className="container">
+          <nav className="navbar navbar-light bg-light">
+            <a className="navbar-brand" href="#">
+              MeetMe App
+            </a>
 
-          <span className="navbar-text">
-            <div>{this.authS === 1 ? this.authLinks : this.guestLinks}</div>
-          </span>
-        </nav>
-      </div>
+            <span className="navbar-text">
+              <div>{this.authS === 1 ? this.authLinks : this.guestLinks}</div>
+            </span>
+          </nav>
+        </div>
+      </Fragment>
     );
   }
 }

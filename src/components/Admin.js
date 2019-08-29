@@ -34,7 +34,7 @@ export class Admin extends Component {
       password: this.state.password
     };
 
-    axios.post("http://localhost:9000/api/users/auth", authInfo).then(res => {
+    axios.post("http://localhost:9000/api/admin/auth", authInfo).then(res => {
       //console.log("this is res", res);
       //if (res.data === "ok") {
 
@@ -44,7 +44,7 @@ export class Admin extends Component {
         console.log(res.data.id);
         //const name = this.state.email;
         //localStorage.setItem("TheName", name);
-        window.location = "/ProfilePage";
+        window.location = "/AdminPage";
       }
       //else if (res.data === "nok") {
       else if (res.data.id === 0) {
@@ -57,6 +57,7 @@ export class Admin extends Component {
     return (
       <Fragment>
         <div className="container">
+          <h1>Admin Panel</h1>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>

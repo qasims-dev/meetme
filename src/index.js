@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 import ReactDOM from "react-dom";
-import "./index.css";
+//import "./index.css";
 import App from "./App";
 import Header from "./components/layout/Header";
 import "bootstrap/dist/css/bootstrap.css";

@@ -18,19 +18,23 @@ export class AddFriend extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:9000/api/users/`).then(res => {
-      /* console.log(res.data);
-      this.data = res.data; */
-      this.setState({ allUsers: res.data });
-      //console.log(this.data);
-      /* this.setState({
+    console.log("USER ID IN MOUNT", this.userId);
+    //axios.get(`http://localhost:9000/api/users/`).then(res => {
+    axios
+      .get(`http://localhost:9000/api/users/all/${this.userId}`)
+      .then(res => {
+        console.log("RETURN TO ADD FRIENDS", res.data);
+        //  this.data = res.data; */
+        this.setState({ allUsers: res.data });
+        //console.log(this.data);
+        /* this.setState({
         firstname: res.data.firstName,
         lastname: res.data.lastName,
         email: res.data.email,
         password: res.data.password
       }); */
 
-      /* if(res.data==="ok")
+        /* if(res.data==="ok")
                 {   
                 window.location="/ProfilePage";
                 }
@@ -38,7 +42,7 @@ export class AddFriend extends Component {
                     //console.log("RESP:Login Failed");
                     this.setState({authSuccess:'Login Failed'});
                 }  */
-    });
+      });
   }
 
   addContact(e) {
@@ -54,7 +58,8 @@ export class AddFriend extends Component {
 
     //console.log("Query", e.target.id);
     axios.post(`http://localhost:9000/api/contacts/`, contactInfo).then(res => {
-      console.log(res);
+      //console.log(res);
+      alert("Contact has been added");
     });
   }
 

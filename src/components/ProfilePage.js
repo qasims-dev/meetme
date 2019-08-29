@@ -37,6 +37,7 @@ export class ProfilePage extends Component {
         password: res.data.password,
         image: res.data.image
       });
+
       this.bringImg();
       /* if(res.data==="ok")
                 {   
@@ -127,6 +128,9 @@ export class ProfilePage extends Component {
                 <Link to="/Contacts">Contacts</Link>
               </li>
               <li className="list-group-item">
+                <Link to="/ResetPassword">Change Password</Link>
+              </li>
+              <li className="list-group-item">
                 <Link to="#" onClick={this.removeAccount}>
                   Remove Account
                 </Link>
@@ -148,8 +152,8 @@ export class ProfilePage extends Component {
                   this.state.imgbuffer
                 }
                 alt="alt"
-                className="rounded-circle"
-                style={{ width: "25%" }}
+                className="img-fluid rounded-circle"
+                style={{ width: "25%", height: "50%" }}
               />
             </p>
           </div>

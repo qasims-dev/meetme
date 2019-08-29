@@ -39,16 +39,29 @@ module.exports = function(app, db) {
     }
   });
 
+  app.get("/api/users/all/:id", async (req, resp) => {
+    try {
+      let id = Number(req.params.id);
+      await dao.getallUsers(id, ({ error, data }) => {
+        resp.json(data);
+      });
+    } catch (e) {
+      resp.sendStatus(500);
+    }
+  });
+
   app.delete("/api/users", async (req, resp) => {
     try {
-      //console.log("DELETE API");
       //let id = Number(req.params.id);
       let id = req.query.id;
+      console.log("DELETE API", id);
       //console.log("req DELETE:", req);
       /* console.log("ID TO DELETE:", id);
       console.log("IMAGE TO DELETE:", req.query.imageName); */
-
-      fs.unlinkSync(path.join(__dirname, "../public", req.query.imageName));
+      console.log("IMAGE TO REMOVE", req.query.imageName);
+      if (req.query.imageName !== "admin.png") {
+        fs.unlinkSync(path.join(__dirname, "../public", req.query.imageName));
+      }
       await dao.deleteUser(id, function({ error, data }) {
         resp.json(data);
       });
@@ -120,6 +133,16 @@ module.exports = function(app, db) {
   app.put("/api/users", async (req, resp) => {
     try {
       await dao.updateUser(req.body, function({ error, data }) {
+        resp.json(data);
+      });
+    } catch (e) {
+      resp.sendStatus(500);
+    }
+  });
+
+  app.put("/api/users/changepassword", async (req, resp) => {
+    try {
+      await dao.updateUserPassword(req.body, function({ error, data }) {
         resp.json(data);
       });
     } catch (e) {
