@@ -17,7 +17,7 @@ class Header extends Component {
     this.authLinks = (
       <Fragment>
         <li>
-          ICON <Link to="/LogoutPage"> Logout</Link>
+          <Link to="/LogoutPage"> Logout</Link>
         </li>
       </Fragment>
     );
@@ -33,8 +33,8 @@ class Header extends Component {
     return (
       <Fragment>
         <div className="container">
-          <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand" href="#">
+          <nav className="navbar navbar-dark bg-primary">
+            <a className="navbar-brand" href="#" style={headerStyle}>
               MeetMe App
             </a>
 
@@ -69,4 +69,9 @@ class Header extends Component {
 
   }
  */
+
+const headerStyle = {
+  border: "none",
+  padding: "15px 0px 15px 50px"
+};
 export default Header;

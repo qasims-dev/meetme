@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import ExampleComponent from "react-rounded-image";
 
 import axios from "axios";
 
@@ -136,32 +137,41 @@ export class ProfilePage extends Component {
                 </Link>
               </li>
             </ul>
-            <h3>Your Data</h3>
-            <p>First Name: {this.state.firstname}</p>
+            <div className="jumbotron jumbotron-fluid" style={jStyle}>
+              <div className="row">
+                <div className="col-md-8">
+                  <h3>Your Data</h3>
+                  <p>First Name: {this.state.firstname}</p>
 
-            <p>Last Name: {this.state.lastname}</p>
+                  <p>Last Name: {this.state.lastname}</p>
 
-            <p>Email: {this.state.email} </p>
+                  <p>Email: {this.state.email} </p>
 
-            <p>Password: {this.state.password}</p>
-            <p>
-              Image:{" "}
-              <img
-                src={
-                  //process.env.PUBLIC_URL + "/profileImages/admin.png"
-                  this.state.imgbuffer
-                }
-                alt="alt"
-                className="img-fluid rounded-circle"
-                style={{ width: "25%", height: "50%" }}
-              />
-            </p>
+                  <p>Password: {this.state.password}</p>
+                </div>
+                <div className="col-md-4">
+                  <ExampleComponent
+                    image={
+                      //process.env.PUBLIC_URL + "/profileImages/admin.png"
+                      this.state.imgbuffer
+                    }
+                    roundedColor="grey"
+                    imageWidth="200"
+                    imageHeight="200"
+                    roundedSize="5"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div />
       </Fragment>
     );
   }
 }
 
+const jStyle = {
+  border: "none",
+  padding: "15px 0px 15px 50px"
+};
 export default ProfilePage;

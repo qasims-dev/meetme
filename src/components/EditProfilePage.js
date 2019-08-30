@@ -74,6 +74,7 @@ export class EditProfilePage extends Component {
   render() {
     return (
       <div className="container">
+        <h4>Edit Profile</h4>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">Frist Name</label>

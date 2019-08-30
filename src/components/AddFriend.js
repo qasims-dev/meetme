@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ExampleComponent from "react-rounded-image";
 
 export class AddFriend extends Component {
   constructor(props) {
@@ -66,47 +67,51 @@ export class AddFriend extends Component {
   render() {
     return (
       <Fragment>
-        <div>
-          <table>
-            {this.state.allUsers.map(user => (
-              <Fragment>
-                <tr>
-                  <td>
-                    <hr />
+        <div className="container">
+          <h4>Add Contact</h4>
+          {this.state.allUsers.map(user => (
+            <Fragment>
+              <div className="jumbotron jumbotron-fluid" style={jStyle}>
+                <div className="row">
+                  <div className="col-md-8">
                     <h2>
                       {user.firstName} {user.lastName}
                     </h2>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <img
-                      src={`http://localhost:9000/images/${user.image}`}
-                      alt="alt"
-                      className="rounded-circle"
-                      style={{ width: "25%" }}
-                    />
-                  </td>
-                  <td>
                     <p>First Name: {user.firstName}</p>
                     <p>Last Name: {user.lastName}</p>
                     <p>Last Name: {user.email}</p>
                     <p>User Id: {user.id}</p>
                     <p>
-                      <Link onClick={this.addContact} id={user.id}>
+                      <Link
+                        class="btn btn-primary btn-lg"
+                        onClick={this.addContact}
+                        id={user.id}
+                      >
                         Add Contact
                       </Link>
                     </p>
-                  </td>
-                </tr>
-                <hr />
-              </Fragment>
-            ))}
-          </table>
+                  </div>
+                  <div className="col-md-4">
+                    <ExampleComponent
+                      image={`http://localhost:9000/images/${user.image}`}
+                      roundedColor="grey"
+                      imageWidth="200"
+                      imageHeight="200"
+                      roundedSize="5"
+                    />
+                  </div>
+                </div>
+              </div>
+            </Fragment>
+          ))}
         </div>
       </Fragment>
     );
   }
 }
 
+const jStyle = {
+  border: "none",
+  padding: "15px 0px 15px 50px"
+};
 export default AddFriend;

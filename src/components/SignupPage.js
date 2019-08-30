@@ -79,6 +79,11 @@ export class SignupPage extends Component {
     axios.post("http://localhost:9000/api/usersImage", body).then(res => {
       //console.log(res.data);
       // alert("Image upload");
+      this.setState({
+        imageInfo: { imageName: "admin.png", imagebuffer: null }
+      });
+
+      window.location = "/";
     });
   }
 

@@ -66,7 +66,7 @@ export class ResetPassword extends Component {
     return (
       <Fragment>
         <div className="container">
-          <h1>Change Password</h1>
+          <h4>Change Password</h4>
           <form onSubmit={this.onSubmit}>
             <div className="form-group">
               <label htmlFor="oldPassword">Old Password</label>
